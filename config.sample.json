@@ -1,0 +1,11 @@
+{
+  "whitelist": [
+    "192.168.0.1"
+  ],
+  "refresh": 60,
+  "ssl": {
+  	"key": "/path/to/key",
+  	"cert": "/path/to/cert"
+  },
+  "port": 8080
+}
