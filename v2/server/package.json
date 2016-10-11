@@ -1,0 +1,22 @@
+{
+  "name": "castboard",
+  "private": true,
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/index.js",
+  "scripts": {
+    "start": "babel-node src/index.js",
+    "debug": "babel-node --debug-brk src/index.js",
+    "compile": "babel src/ -d dist/"
+  },
+  "dependencies": {
+    "castv2": "^0.1.4",
+    "chalk": "^1.1.0",
+    "mdns": "^2.2.9",
+    "nconf": "^0.8.4",
+    "node-fetch": "^1.3.2"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.5.2"
+  }
+}

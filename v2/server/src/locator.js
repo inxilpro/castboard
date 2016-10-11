@@ -1,6 +1,6 @@
 'use strict';
 
-import { EventEmitter } from 'events';
+import {EventEmitter} from 'events';
 import mdns from 'mdns';
 import chalk from 'chalk';
 
@@ -63,7 +63,9 @@ export default class Locator extends EventEmitter {
 			setTimeout(() => {
 				browser.stop();
 				this.scanning = false;
-				setTimeout(() => { this.scan() }, this.refreshRate * 1000);
+				setTimeout(() => {
+					this.scan()
+				}, this.refreshRate * 1000);
 			}, 5000);
 		};
 

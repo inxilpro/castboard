@@ -4,19 +4,19 @@ import chalk from 'chalk';
 import loadConfig from './config';
 import Locator from './locator';
 import Projector from './projector';
-import Server from './server';
 
 loadConfig().then(config => {
 	// Start server
-	const server = new Server(config);
-	server.listen();
+	// FIXME:
+	// const server = new Server(config);
+	// server.listen();
 
 	// Set up locator & scan
 	const locator = new Locator(config);
 	locator.on('up', service => {
 		try {
 			const id = service.fullname;
-			let projector = new Projector(service);
+			let projector = new Projector(config, service);
 			locator.attach(id, projector);
 			projector.connect();
 		} catch (e) {
@@ -26,6 +26,5 @@ loadConfig().then(config => {
 	locator.scan();
 }).catch(e => {
 	console.error(chalk.red('Configuration error: ' + e.message));
-
 	process.exit(1);
 });

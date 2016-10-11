@@ -1,7 +1,6 @@
 'use strict';
 
-import { Client, DefaultMediaReceiver } from 'castv2-client';
-
+import {Client, DefaultMediaReceiver} from 'castv2-client';
 import chalk from 'chalk';
 
 var browser, config;
@@ -14,8 +13,6 @@ var running = false;
 function start() {
 	if (!running) {
 		console.log(chalk.yellow('Searching for new services...'));
-
-		
 
 		browser.on('serviceUp', function(service) {
 			console.log(chalk.bgWhite.black.bold('Service Up:'));
@@ -52,7 +49,7 @@ function sleep(refresh) {
 	clearTimeout(willSleep);
 	willSleep = setTimeout(() => {
 		stop();
-		setTimeout(() =>{
+		setTimeout(() => {
 			start();
 		}, refresh * 1000);
 	}, 5000);
