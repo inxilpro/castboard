@@ -12,8 +12,6 @@ export default class Projector extends EventEmitter {
 
 		this.appId = config.appId;
 		this.service = service;
-		this.currentImage = 0;
-		this.images = [];
 
 		console.log(config);
 		console.log(chalk.yellow('Setting App ID to ') + chalk.blue(this.appId));
@@ -58,8 +56,8 @@ export default class Projector extends EventEmitter {
 		});
 
 		// Handle events
-		receiver.on('message', function(data, broadcast) {
-			console.log(chalk.yellow('Message: ') + JSON.stringify(data, null, 4));
+		receiver.on('message', (data, broadcast) => {
+			console.log(chalk.yellow(`${this.service.name}: `) + JSON.stringify(data, null, 4));
 		});
 	}
 }

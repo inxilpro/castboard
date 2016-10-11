@@ -8,6 +8,8 @@ export default class Locator extends EventEmitter {
 	constructor(config) {
 		super();
 
+		this.whitelist = config.whitelist;
+		this.blacklist = config.blacklist;
 		this.refreshRate = config.refresh;
 		this.projectors = {};
 		this.services = {};
@@ -32,6 +34,13 @@ export default class Locator extends EventEmitter {
 
 	up(service) {
 		const id = service.fullname;
+
+		if (this.whitelist.length && -1 === this.whitelist.indexOf(service.addresses[0])) {
+			console.log(`Skipping ${service.addresses[0]} because not on whitelist.`);
+			return;
+		}
+
+		// TODO: Blacklist
 
 		if (!this.services[id]) {
 			console.log('%s %s at %s:%s', chalk.bgWhite.black.bold('Up:'), chalk.bold(service.name), chalk.green(service.addresses[0]), chalk.blue(service.port));
