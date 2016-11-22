@@ -1,8 +1,0 @@
-{
-  "whitelist": ["192.168.1.206"],
-  "blacklist": [],
-  "refresh": 60,
-  "port": 4994,
-  "appId": "CA719434",
-  "override": "E8C28D3C"
-}
