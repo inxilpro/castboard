@@ -1,45 +1,35 @@
 'use strict';
 
-const Client = require('castv2-client').Client;
 const ConnectionManager = require('./connection_manager');
 const Sender = require('./sender');
 const chalk = require('chalk');
-
-const appId = Sender.APP_ID;
-const overrideApps = ['E8C28D3C'];
+const config = require('../config.json');
 
 const manager = new ConnectionManager();
 
 manager.on('status', (status, client) => {
-	// Set volume
-	/*
-	if (status.volume && !status.volume.muted) {
-		client.setVolume({ muted: true }, (err, volume) => {
-			if (err) {
-				console.error('Volume error', err);
-				return;
-			}
-			console.log('Set volume to ', volume);
-		});
+	if (!status.applications) {
+		return;
 	}
-	*/
 
-	// Launch app
-	if (status.applications) {
-		const apps = status.applications.map(application => application.appId);
-		const running = apps.find(runningAppId => runningAppId === appId);
+	const appIds = status.applications.map(application => application.appId);
+	const running = appIds.find(runningAppId => runningAppId === config.appId);
 
-		if (!running) {
-			const matches = apps.filter(appId => overrideApps.indexOf(appId) !== -1);
-			if (matches.length) {
-				client.launch(Sender, function(err, player) {
-					console.log('Launched app');
-					if (err) {
-						console.error('Error', err);
-						// FIXME
-					}
-				});
-			}
+	if (running) {
+
+	}
+
+	if (!running) {
+		const matches = appIds.filter(appId => config.override.indexOf(appId) !== -1);
+		if (matches.length) {
+			client.launch(Sender, function(err, sender) {
+				if (err) {
+					console.error('Error', err);
+					return;
+				}
+
+				console.log('Launched app');
+			});
 		}
 	}
 });
